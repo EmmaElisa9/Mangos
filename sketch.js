@@ -11,6 +11,8 @@ var mango1,mango2,mango3,mango4,mango5,mango6,mango7,mango8,mango9,mango10,mango
 var world,boy;
 
 //Declara aquí las variables launcherObject y launchForce
+var launcherObject;
+var launchForce = 100;
 
 
 function preload(){
@@ -40,6 +42,7 @@ function setup() {
 	treeObj=new tree(1050,580);
 	groundObject=new ground(width/2,600,width,20);
   //crea aquí el launcherObject 
+  launcherObject = new launcher(stoneObj.body,{x:235,y:420});
 
 
 	Engine.run(engine);
@@ -70,6 +73,7 @@ function draw() {
   stoneObj.display();
   groundObject.display();
   // muestra el objeto lanzador aquí
+  launcherObject.display();
     
 
 
@@ -88,20 +92,24 @@ function draw() {
 }
 
 //crea aquí la función mouseDragged
-
+function mouseDragged(){
+  Matter.Body.setPosition(stoneObj.body,{x:mouseX,y:mouseY});
+}
 
 //crea aquí la función mouseReleased 
-
+function mouseReleased(){
+  Launcher.libre();     
+}
 
 //crea aquí la función keyPressed 
 
 
   function detectollision(lstone,lmango){
 
-  mangoBodyPosition=lmango.body.position
-  stoneBodyPosition=lstone.body.position
+    mangoBodyPosition=lmango.body.position
+    stoneBodyPosition=lstone.body.position
   
-  var distance=dist(stoneBodyPosition.x, stoneBodyPosition.y, mangoBodyPosition.x, mangoBodyPosition.y)
+    var distance=dist(stoneBodyPosition.x, stoneBodyPosition.y, mangoBodyPosition.x, mangoBodyPosition.y)
   	if(distance<=lmango.r+lstone.r)
     {
   	  Matter.Body.setStatic(lmango.body,false);
