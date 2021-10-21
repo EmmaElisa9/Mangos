@@ -40,9 +40,9 @@ function setup() {
 	mango12=new mango(900,160,40);
 
 	treeObj=new tree(1050,580);
-	groundObject=new ground(width/2,600,width,20);
+	groundObject=new ground(width/2,600,width,60);
   //crea aquí el launcherObject 
-  launcherObject = new launcher(stoneObj.body,{x:235,y:420});
+  launcherObject = new Launcher(stoneObj.body,{x:235,y:420});
 
 
 	Engine.run(engine);
@@ -50,8 +50,9 @@ function setup() {
 
 function draw() {
 
-  background(230);
+  background(rgb(20,100,130));
   textSize(25);
+  fill(rgb(255,20,200));
   text("¡Presiona Barra Espaciadora para tener una segunda Oportunidad para Jugar!",50 ,50);
   image(boy ,200,340,200,300);
   
@@ -89,6 +90,8 @@ function draw() {
   detectollision(stoneObj,mango10);
   detectollision(stoneObj,mango11);
   detectollision(stoneObj,mango12);
+
+
 }
 
 //crea aquí la función mouseDragged
@@ -98,10 +101,16 @@ function mouseDragged(){
 
 //crea aquí la función mouseReleased 
 function mouseReleased(){
-  Launcher.libre();     
+  launcherObject.libre();     
 }
 
 //crea aquí la función keyPressed 
+function keyPressed(){
+  if (keyCode === 32){
+    Matter.Body.setPosition(stoneObj.body,{x:235,y:420});
+    launcherObject.attach(stoneObj.body);
+  }
+}
 
 
   function detectollision(lstone,lmango){

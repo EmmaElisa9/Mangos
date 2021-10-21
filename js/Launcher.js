@@ -1,4 +1,4 @@
-class launcher{
+class Launcher{
     constructor(bodyA, pointB){
         var options = {
             bodyA: bodyA,
@@ -6,10 +6,15 @@ class launcher{
             stiffness: 0.04,
             length: 10
         }
+        this.bodyA = bodyA;
         this.pointB = pointB;
         this.launcher = Constraint.create(options);
         World.add(world, this.launcher);
     }
+
+    attach(bodyA){
+		this.launcher.bodyA=bodyA;
+	}
 
     display(){
         if(this.launcher.bodyA){
